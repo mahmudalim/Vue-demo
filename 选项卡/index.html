@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简单的vue选项卡</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .vueSelect>ol {
+            height: 40px;
+            background-color: #38ADFF;
+        }
+
+        .vueSelect>ol>li {
+            float: left;
+            line-height: 40px;
+            padding: 0 10px;
+            color: white;
+        }
+
+        .vueSelect>ol>.vueSelectOLTrue {
+            background-color: #169BD5;
+        }
+
+        .vueSelect>ol>li:hover {
+            background-color: #169BD5;
+        }
+
+        .vueSelect>ul {
+            height: 200px;
+        }
+
+        .vueSelect>ul>.vueSelectULTrue {
+            display: block;
+            color: white;
+            background-color: #2C5364;
+        }
+
+        .vueSelect>ul>li {
+            display: none;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vueSelect">
+        <ol>
+            <li v-for="(SelectOL,index) in vueSelectBase" v-on:click="vueClick(index)" v-bind:class="SelectOL.vueSelecClassOL">{{SelectOL.vueSelectOL}}
+                {{index}}</li>
+        </ol>
+        <ul>
+            <li v-for="(SelectUL,index) in vueSelectBase" v-bind:class="SelectUL.vueSelecClassUL">{{SelectUL.vueSelectUL}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    var vueSelect = new Vue({ //实例一个vue对象
+        el: ".vueSelect", //el是指向选择器，当选择器为class类型时，只作用于第一个
+        data: { //data是指向数据
+            vueSelectBase: [{
+                    vueSelectOL: "vue选项一",
+                    vueSelecClassOL: "vueSelectOLTrue",
+                    vueSelecClassUL: "vueSelectULTrue",
+                    vueSelectUL: "vue内容一"
+                },
+                {
+                    vueSelectOL: "vue选项二",
+                    vueSelecClassOL: "",
+                    vueSelecClassUL: "",
+                    vueSelectUL: "vue内容二"
+                },
+                {
+                    vueSelectOL: "vue选项三",
+                    vueSelecClassOL: "",
+                    vueSelecClassUL: "",
+                    vueSelectUL: "vue内容三"
+                },
+            ]
+
+        },
+        methods: { //methods是指向函数方法
+            vueClick: function (index) {
+                let vueSelectNum = this.vueSelectBase.length;
+                for (let i = 0; i < vueSelectNum; i++) {
+                    this.vueSelectBase[i].vueSelecClassOL = "";
+                    this.vueSelectBase[i].vueSelecClassUL = "";
+                }
+                this.vueSelectBase[index].vueSelecClassOL = "vueSelectOLTrue";
+                this.vueSelectBase[index].vueSelecClassUL = "vueSelectULTrue";
+            }
+        }
+    });
+</script>
+
+</html>
