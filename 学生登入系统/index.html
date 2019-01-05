@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="vue.js"></script> -->
+<style type="text/css">
+    #app{
+    margin: 50px auto;
+    width: 600px;
+    /*background: #FBF6D7;*/
+
+    }
+    input{
+        border:1px solid blue;
+        color: red;
+    }
+    button{
+        border:1px solid #CD08E1;
+        background: rgb(250, 96, 181);
+    }
+    fieldset{
+        border:2px solid red;
+        margin-bottom: 20px;
+
+    }
+    fieldset input{
+        width: 200px;
+        height: 30px;
+        margin: 10px 0;
+    }
+    table{
+        width: 600px;
+        border:2px solid red;
+        text-align: center;
+
+    }
+    thead{
+        background: rgb(243, 159, 49);
+    
+
+    }
+
+
+</style>
+
+
+</head>
+<body>
+    <div id="app">
+        <!-- 第一部分 -->
+        <fieldset>
+            <legend><h3>e++学生登入系统</h3></legend>
+            <div>
+                <span>姓名：</span>
+                <input type="text" placeholder="请输入姓名" v-model="newStudent.name" name="">
+
+            </div>
+            <div>
+                <span>年龄：</span>
+                <input type="text" placeholder="请输入年龄" name="" v-model="newStudent.age" >
+
+            </div>
+            <div>
+                <span>性别：</span>
+               <select v-model="newStudent.sex" >
+                   <option value="男">男</option>
+                   <option value="女">女</option>
+              
+               </select>
+
+            </div>
+            <div>
+                <span>手机：</span>
+                <input type="text" placeholder="请输入手机号" name="" v-model="newStudent.phone" >
+
+            </div>
+            <button @click='createNewStudent'>创建新用户</button>
+
+        </fieldset>
+        <!-- 第二部分 -->
+        <table>
+            <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>性别</td>
+                    <td>年龄</td>
+                    <td>手机</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="p in persons">
+                    <td>{{p.name}}</td>
+                    <td>{{p.sex}}</td>
+                    <td>{{p.age}}</td>
+                    <td>{{p.phone}}</td>
+                    <td>
+                        <button @click="deleteStudentMsg(index)">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+el:'#app',
+data:{
+    persons:
+        [
+        {name:'张三',age:'22',sex:'男',phone:'133333575'},
+        {name:'王四',age:'33',sex:'女',phone:'121213275'},
+        {name:'连胜',age:'11',sex:'男',phone:'122223175'},
+        {name:'李四',age:'33',sex:'女',phone:'122221275'},
+        {name:'刚生',age:'31',sex:'男',phone:'111117575'},
+        ],
+        newStudent:{name:'',age:'',sex:'男',phone:''}//创建空数组,放在数组前面
+
+    },
+    
+  
+
+    methods:{
+        //创建新用户
+    createNewStudent(){
+    //姓名不能为空
+    if (this.newStudent.name === '') {
+    alert("姓名不能为空");
+    return;
+    }
+    if (this.newStudent.age <= 0) {
+    alert("年龄不正确");
+    return;
+     }
+     if (this.newStudent.phone === '') {
+    alert("手机号不能为空");
+    return;
+    }
+
+
+
+
+
+        //数组中添加新记录
+        this.persons.unshift(this.newStudent);//添加信息
+        //清空数据
+        this.newStudent={name:'',age:'',sex:'男',phone:''}
+    },
+      //删除信息
+    deleteStudentMsg(index){
+     this.persons.splice(index,1);
+    }
+
+    }
+ 
+});  
+
+</script>
+
+
